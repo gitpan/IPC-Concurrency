@@ -4,19 +4,19 @@ use warnings;
 use strict;
 
 use Carp;
-use IPC::ShareLite;
+use IPC::ShareLite ':lock';
 
 =head1 NAME
 
-IPC::Concurrency - concurrency guard for processes.
+IPC::Concurrency - Concurrency guard for processes.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -158,7 +158,7 @@ sub get_slot {
       unless $count >= 1
       and $count <= 1024;
 
-    $self->{'concurrency'}->lock();
+    $self->{'concurrency'}->lock( LOCK_EX );
 
     my %pids = map { $_ => 1 } split /,/, $self->{'concurrency'}->fetch();
 
