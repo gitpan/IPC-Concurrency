@@ -12,11 +12,11 @@ IPC::Concurrency - Concurrency guard for processes.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ This module allows you to specify how many processes of given kind you want to r
 
 May be usefull when you want to prevent machine overload or provide exclusive access to some resource.
 
-This is NOT a forker, use L<Proc::Queue> for that.
+This is NOT a forker.
 
     use IPC::Concurrency;
     
@@ -109,6 +109,27 @@ B<A:> You can make as many containers as your system allows. You will get C<< Ca
 B<Q:> What is the limit for number of processes registered in one container?
 
 B<A:> You can request C<< $c2->get_slot(1024) >> max.
+
+--
+
+B<Q:> Can i use this module for limiting child processes?
+
+B<A:> Yes. In the following example child process doesn't know
+how many other child processes have been spawned. But it can use get_slot()
+to prevent exceeding 10 live child processes.
+
+Example:
+
+    package Scraper;
+    
+    use IPC::Concurrency;
+    
+    my $c1 = IPC::Concurrency->new('SCRA');
+    
+    unless ( my $pid = fork() ) {
+        exit unless $c1->get_slot(10);
+    }
+
 
 =head1 FUNCTIONS
 
