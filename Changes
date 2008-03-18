@@ -1,5 +1,8 @@
 Revision history for IPC-Concurrency
 
+0.4     2008-03-18 18:00:00 CET
+        Fixed version inconsistency - 0.3 for file vs 0.03 declared in module
+
 0.03    2008-03-17 14:00:00 CET
         Removed Build.PL as pointed in http://rt.cpan.org/Ticket/Display.html?id=34071
 
