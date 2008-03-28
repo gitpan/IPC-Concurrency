@@ -1,5 +1,8 @@
 Revision history for IPC-Concurrency
 
+0.5     2008-03-28 17:00:00 CET
+        Added Test::Exception to Makefile.PL
+
 0.4     2008-03-18 18:00:00 CET
         Fixed version inconsistency - 0.3 for file vs 0.03 declared in module
 
